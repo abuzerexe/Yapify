@@ -96,7 +96,8 @@ user.post('/signin', async (c)=>{
 
         if(check){
 
-            const token = await Jwt.sign(check,c.env.JWT_SECRET)
+            const signedjwt = await Jwt.sign(check,c.env.JWT_SECRET)
+            const token = 'Bearer '+signedjwt;
 
             return c.json({
                 message : "Sign In Successfully.",
