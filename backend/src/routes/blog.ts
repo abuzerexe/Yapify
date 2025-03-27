@@ -1,3 +1,4 @@
+import { createBlogInput, updateBlogInput } from '@abuzerexe/yapify-common';
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import {Hono} from 'hono';
@@ -58,7 +59,17 @@ blog.post('/',async (c)=>{
         
 
     const userId = c.get('userId')
-    const {title,content} = await c.req.json()
+
+    const body = await c.req.json()
+    const {success} = createBlogInput.safeParse(body)
+
+    if(!success){
+        c.status(411)
+        return c.json({
+            message : "Invalid Inputs"
+        })
+    }
+    const {title,content} = body;
     
     try{
 
@@ -101,6 +112,14 @@ blog.put('/',async (c)=>{
     
     const userId = c.get('userId')
     const body = await c.req.json();
+    const {success} = updateBlogInput.safeParse(body)
+
+    if(!success){
+        c.status(411)
+        return c.json({
+            message : "Invalid Inputs"
+        })
+    }
 
     try{
         const response = await prisma.blog.update({
@@ -178,7 +197,49 @@ blog.get('/:id',async (c)=>{
 
 })
 
-blog.delete("/")
+blog.delete("/delete",async (c)=>{
+
+    
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
+
+    const body = await c.req.json();
+    const {success} = updateBlogInput.safeParse(body)
+
+    if(!success){
+        c.status(411)
+        return c.json({
+            message : "Invalid Inputs"
+        })
+    }
+    const userId = c.get("userId");
+
+    try{
+
+        const response = await prisma.blog.delete({
+            where : {
+                id : body.blogId,
+                authorId : userId
+            }
+        })
+
+        if(response){
+            c.status(401)
+            return c.json({
+                message : "Error while deleting."
+            })
+        }
+
+    }catch(e:any){
+        c.status(401)
+        return c.json({
+            message : "Error while deleting.",
+            error : e.message
+        })
+    }
+
+})
 
 
 

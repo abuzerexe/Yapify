@@ -3,7 +3,7 @@ import { Jwt } from 'hono/utils/jwt';
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sha256} from 'hono/utils/crypto';
-
+import { signinInput, signupInput } from '@abuzerexe/yapify-common';
 
 const user = new Hono<{
     Bindings:{
@@ -16,6 +16,16 @@ const user = new Hono<{
 user.post('/signup', async (c)=>{
     
     const body = await c.req.json()
+
+    const {success} = signupInput.safeParse(body)
+
+    if(!success){
+        c.status(411)
+        return c.json({
+            message : "Invalid Inputs"
+        })
+    }
+    
     const email = body['email']
     const password = body['password']
     const name = body['name']
@@ -73,6 +83,16 @@ user.post('/signup', async (c)=>{
 user.post('/signin', async (c)=>{
 
     const body = await c.req.json();
+
+    const {success} = signinInput.safeParse(body)
+
+    if(!success){
+        c.status(411)
+        return c.json({
+            message : "Invalid Inputs"
+        })
+    }
+
     const email = body['email'];
     const password = body['password'];
 
