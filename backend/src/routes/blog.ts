@@ -1,4 +1,4 @@
-import { createBlogInput, updateBlogInput } from '@abuzerexe/yapify-common';
+import { createBlogInput, deleteBlogInput, updateBlogInput } from '@abuzerexe/yapify-common';
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import {Hono} from 'hono';
@@ -205,7 +205,7 @@ blog.delete("/delete",async (c)=>{
     }).$extends(withAccelerate())
 
     const body = await c.req.json();
-    const {success} = updateBlogInput.safeParse(body)
+    const {success} = deleteBlogInput.safeParse(body)
 
     if(!success){
         c.status(411)
@@ -224,7 +224,11 @@ blog.delete("/delete",async (c)=>{
             }
         })
 
-        if(response){
+        if(!response){
+            return c.json({
+                message : "Deleted Successfully."
+            })
+        }else{
             c.status(401)
             return c.json({
                 message : "Error while deleting."
@@ -240,8 +244,5 @@ blog.delete("/delete",async (c)=>{
     }
 
 })
-
-
-
 
 export default blog;
