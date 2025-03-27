@@ -16,13 +16,14 @@ const user = new Hono<{
 user.post('/signup', async (c)=>{
     
     const body = await c.req.json()
-    const email = body['username']
+    const email = body['email']
     const password = body['password']
     const name = body['name']
-    
+
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
+    
     
     
     const hashedPassword = await sha256(password)
@@ -41,7 +42,7 @@ user.post('/signup', async (c)=>{
                 message : "Email already Taken"
             })
         }
-        
+
         const result = await prisma.user.create({
             data : {
                 email,
@@ -113,5 +114,7 @@ user.post('/signin', async (c)=>{
     }
 
 } )
+
+
 
 export default user;
