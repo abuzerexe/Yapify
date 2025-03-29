@@ -61,7 +61,7 @@ export const Quote = () => {
     useEffect(()=>{
         const interval = setInterval(()=>{
             setCurrQuoteIndex((prevIndex)=>(prevIndex+1) % quotes.length)
-        },5000)
+        },7000)
 
         return ()=>clearInterval(interval)
     },[])
