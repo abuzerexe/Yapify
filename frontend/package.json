@@ -10,9 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@abuzerexe/yapify-common": "^4.0.0",
+    "@abuzerexe/yapify-common": "^6.0.0",
     "@tailwindcss/vite": "^4.0.17",
     "dotenv": "^16.4.7",
+    "framer-motion": "^12.6.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.0",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.14",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
