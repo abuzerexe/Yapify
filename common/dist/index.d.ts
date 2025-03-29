@@ -52,7 +52,7 @@ export declare const deleteBlogInput: z.ZodObject<{
 }, {
     blogId: string;
 }>;
-export type SigninInpput = z.infer<typeof signinInput>;
+export type SigninInput = z.infer<typeof signinInput>;
 export type SignupInput = z.infer<typeof signupInput>;
 export type UpdateBlogInput = z.infer<typeof updateBlogInput>;
 export type DeleteBlogInput = z.infer<typeof deleteBlogInput>;
