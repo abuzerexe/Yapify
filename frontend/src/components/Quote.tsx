@@ -3,56 +3,56 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const quotes = [
     {
-      text: "The customer support I received was exceptional. The support team went above and beyond to address my concerns.",
+      text: "Writing is the painting of the voice, and your voice deserves to be heard.",
       author: "Julies Winfield",
-      title: "CEO | Acme Corp",
+      title: "Author & Storyteller",
     },
     {
-      text: " This platform has transformed how we do business. Highly recommended!",
+      text: "Every great blog begins with a single word. Let your story unfold today.",
       author: "Mark Johnson",
-      title: "COO | Tech Solutions",
+      title: "Blogger | Tech Enthusiast",
     },
     {
-      text: " Outstanding experience from start to finish. Their team really knows their stuff!",
-      author: "Sophia Lee",
-      title: "Founder | Innovate Inc.",
+      text: "Blogging is not just writing; it's about connecting with people who share your passion.",
+      author: "Sophia Bennett",
+      title: "Travel Blogger",
     },
     {
-      text: "I’ve never been more satisfied with a product. Exceptional quality and service.",
-      author: "James Carter",
-      title: "Manager | Global Enterprises",
+      text: "Your ideas are your superpower. Blogging is how you share them with the world.",
+      author: "Liam Carter",
+      title: "Creative Writer",
     },
     {
-      text: "Their innovative solutions have made a tremendous difference in our operations. We’re seeing great results.",
+      text: "A blog is your personal space on the internet. Make it meaningful, make it yours.",
       author: "Emily Davis",
-      title: "CTO | Future Visions",
+      title: "Content Creator",
     },
     {
-      text: "Exceptional value and performance. I would recommend them without hesitation.",
-      author: "David Roberts",
-      title: "Consultant | Growth Analytics",
+      text: "The best blogs inspire, educate, and empower readers. Start your journey now.",
+      author: "Michael Edwards",
+      title: "Educator & Blogger",
     },
     {
-      text: "The dedication and expertise of their team are unmatched. It’s been a game changer for us.",
-      author: "Olivia Brown",
-      title: "VP | Strategy & Solutions",
+      text: "Blogging isn't about being perfect; it's about being authentic.",
+      author: "Olivia Martinez",
+      title: "Lifestyle Blogger",
     },
     {
-      text: "I was impressed by their professionalism and commitment to delivering the best experience possible.",
-      author: "Liam Anderson",
-      title: "Director | Pinnacle Systems",
+      text: "A blog is a place where your thoughts can take flight and inspire others.",
+      author: "James Wilson",
+      title: "Motivational Blogger",
     },
     {
-      text: "A truly fantastic service. They exceeded all my expectations and more!",
-      author: "Charlotte Wilson",
-      title: "Owner | Design Sphere",
+      text: "Share your story, one post at a time. The world is waiting to hear from you.",
+      author: "Isabella Brown",
+      title: "Personal Growth Blogger",
     },
     {
-      text: "Their insights and strategies have propelled our company to the next level. Incredible work!",
-      author: "Ethan Martinez",
-      title: "CEO | Visionary Leaders",
+      text: "Blogging is the art of turning ideas into stories that resonate with others.",
+      author: "Ethan Harris",
+      title: "Freelance Blogger",
     },
-  ]
+  ];
 
 export const Quote = () => {
 
