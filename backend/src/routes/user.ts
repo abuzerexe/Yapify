@@ -17,12 +17,12 @@ user.post('/signup', async (c)=>{
     
     const body = await c.req.json()
 
-    const {success} = signupInput.safeParse(body)
+    const {success,error} = signupInput.safeParse(body)
 
     if(!success){
-        c.status(411)
+        c.status(422)
         return c.json({
-            message : "Invalid Inputs"
+            message : error.errors.map((val)=>{return val.message+" \n"})
         })
     }
     
@@ -47,7 +47,7 @@ user.post('/signup', async (c)=>{
         })
 
         if(user){
-            c.status(411)
+            c.status(409)
             return c.json({
                 message : "Email already Taken"
             })
@@ -70,7 +70,7 @@ user.post('/signup', async (c)=>{
         })
 
     }catch(e:any){
-         c.status(411)
+         c.status(404)
          return c.json({
             message : "Error while signing up. Try Again",
             error : e.message
@@ -84,12 +84,12 @@ user.post('/signin', async (c)=>{
 
     const body = await c.req.json();
 
-    const {success} = signinInput.safeParse(body)
+    const {success,error} = signinInput.safeParse(body)
 
     if(!success){
-        c.status(411)
+        c.status(422)
         return c.json({
-            message : "Invalid Inputs"
+            message : error.errors.map((val)=>{return val.message+" \n"})
         })
     }
 
@@ -104,7 +104,6 @@ user.post('/signin', async (c)=>{
     
     try{
 
-    
         const check = await prisma.user.findFirst({
             where :{
                 email,
@@ -124,9 +123,16 @@ user.post('/signin', async (c)=>{
                 message : "Sign In Successfully.",
                 token
             })
+        }else{
+            c.status(422)
+            return c.json({
+                 message : "Invalid Email or Password",
+             })
         }
+        
+
     }catch(e:any){
-        c.status(411)
+        c.status(404)
        return c.json({
             message : "Error while signing in. Try again.",
             error : e.message
