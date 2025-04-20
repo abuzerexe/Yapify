@@ -69,7 +69,7 @@ blog.post('/',async (c)=>{
             message : "Invalid Inputs"
         })
     }
-    const {title,content} = body;
+    const {title,content,createdAt} = body;
     
     try{
 
@@ -78,7 +78,8 @@ blog.post('/',async (c)=>{
                 authorId : userId,
                 title,
                 content,
-                published : true
+                published : true,
+                createdAt
             }
         })
 
@@ -159,43 +160,6 @@ blog.put('/',async (c)=>{
 })
 
 
-blog.get('/:id',async (c)=>{
-
-    const blogId = c.req.param('id');
-
-    const prisma = new PrismaClient({
-        datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate())
-
-    try{
-        const response = await prisma.blog.findFirst({
-            where : {
-                id: blogId
-            }
-        })
-    
-        if(response){
-            return c.json({
-                data : response
-            })
-    
-        }else{
-            c.status(411)
-            return c.json({
-                message : "Error while getting blog.",
-            })
-        }
-    
-    }catch(e:any){
-
-        c.status(411)
-        return c.json({
-            message : "Error while getting blog.",
-            error : e.message
-        })
-    }
-
-})
 
 blog.delete("/delete",async (c)=>{
 
