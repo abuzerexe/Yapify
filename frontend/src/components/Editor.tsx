@@ -79,64 +79,64 @@ const extensions = [
   Bold,
   Italic,
   TextUnderline,
-  Strike,
+  // Strike,
 
   // Text Styling
   Highlight,
   Color,
-  FontSize,
-  FontFamily,
-  LineHeight,
+  // FontSize,
+  // FontFamily,
+  // LineHeight,
 
   // Headers
   Heading,
 
   // Lists
-  BulletList,
-  OrderedList,
+  // BulletList,
+  // OrderedList,
 
   // Alignment
   TextAlign.configure({
     alignments: ["left", "center", "right", "justify"],
     types: ["heading", "paragraph"],
   }),
-  Indent,
+  // Indent,
 
   // Block Elements
   Blockquote,
-  CodeBlock,
+  // CodeBlock,
   HorizontalRule,
 
   // Media
   Link,
-  Image.configure({
+  // Image.configure({
     // Image upload function placeholder
     // Commented out to avoid errors
     // uploadImage: async (file) => {
     //   // Upload logic would go here
     //   return '';
     // },
-  }),
-  ImageGif.configure({
-    GIPHY_API_KEY: import.meta.env.VITE_GIPHY_API_KEY || "",
-  }),
-  Attachment,
-  Iframe,
-  Twitter,
+  // }),
+  // ImageGif.configure({
+  //   GIPHY_API_KEY: import.meta.env.VITE_GIPHY_API_KEY || "",
+  // }),
+  // Attachment,
+  // Iframe,
+  // Twitter,
 
   // Utilities
-  SlashCommand,
-  SearchAndReplace,
+  // SlashCommand,
+  // SearchAndReplace,
   Emoji,
   History,
-  Document,
-  Code,
-  SubAndSuperScript,
+  // Document,
+  // Code,
+  // SubAndSuperScript,
   Selection,
-  Mention,
-  Table,
-  ExportPdf,
-  ExportWord,
+  // Mention,
+  // Table,
+  // ExportPdf,
+  // ExportWord,
 ]
 
 // Enhanced editor component with internal content handling
