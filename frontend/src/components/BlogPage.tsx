@@ -1,6 +1,16 @@
 import { BlogCardProps } from "../components/BlogCard"
 import { Appbar } from "./Appbar"
 import { Avatar } from "./Avatar"
+import DOMPurify from 'dompurify';
+
+const BlogContent = ({ blogContent }: { blogContent: string }) => {
+    // Sanitize content to prevent XSS attacks
+    const sanitizedContent = DOMPurify.sanitize(blogContent);
+  
+    return (
+      <div className="pt-4" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+    );
+  };
 
 export const BlogPage = ({ blog }: {blog: BlogCardProps}) => {
     console.log(blog)
@@ -16,7 +26,7 @@ export const BlogPage = ({ blog }: {blog: BlogCardProps}) => {
                         Posted on {blog.createdAt}
                     </div>
                     <div className="pt-4">
-                        {blog.content}
+                       <BlogContent blogContent={blog.content} />
                     </div>
                 </div>
                 <div className="col-span-4">

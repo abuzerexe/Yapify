@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { Avatar } from "./Avatar"
+import DOMPurify from 'dompurify';
 
 export interface BlogCardProps {
     authorName : string,
@@ -10,6 +11,37 @@ export interface BlogCardProps {
     content : string,
     id : number
 }
+
+const BlogContent = ({ content }: { content: string }) => {
+    // Sanitize content to prevent XSS attacks
+    const sanitizedContent = DOMPurify.sanitize(content);
+  
+    // Truncate content for preview (first 100 characters) of raw text
+    const previewContent = content.slice(0, 100) + (content.length > 100 ? '...' : '');
+  
+    // Calculate the read time based on word count (rough estimate: 200 words per minute)
+    const wordCount = content.split(' ').length;
+    const readTime = Math.ceil(wordCount / 200);
+  
+    return (
+      <div>
+        {/* Content Preview (HTML rendered version) */}
+        <div className="text-md font-thin pt-4">
+          {/* Render HTML preview of the first part of content */}
+          <div dangerouslySetInnerHTML={{ __html: sanitizedContent.slice(0, 100) }} />
+          {content.length > 100 && <span>...</span>}
+        </div>
+  
+        {/* Estimated Read Time */}
+        <div className="text-slate-500 text-sm font-thin pt-4">
+          {readTime} min read
+        </div>
+  
+        {/* Render Full Content */}
+        {/* <div className="pt-4" dangerouslySetInnerHTML={{ __html: sanitizedContent }} /> */}
+      </div>
+    );
+  };
 
 export const BlogCard = ({authorName,publishedDate,title,content,id}:BlogCardProps) =>{
 return (
@@ -29,13 +61,7 @@ return (
                 {title}
         </div>
 
-        <div className="text-md font-thin">
-                {content.slice(0, 100) + "..."}
-        </div>
-
-        <div className="text-slate-500 text-sm font-thin pt-4">
-            {Math.ceil(content.length/100)} min read
-        </div>
+        <BlogContent content={content} />
     </div>
     </Link>
 )

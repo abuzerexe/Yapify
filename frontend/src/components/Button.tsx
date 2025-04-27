@@ -1,9 +1,9 @@
 import {  MouseEventHandler } from "react"
 
 interface ButtonInterface {
-    label : string,
+    label ?: string,
     onClick : MouseEventHandler<HTMLButtonElement>,
-    status : boolean
+    status ?: boolean
 }
 
 export const Button = ({label,onClick,status}:ButtonInterface)=>{
