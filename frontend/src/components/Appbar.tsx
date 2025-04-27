@@ -1,6 +1,6 @@
 "use client"
 
-import { Link, useNavigate } from "react-router-dom" 
+import { Link, useNavigate, useParams } from "react-router-dom" 
 import { Avatar } from "./Avatar"
 import { useTheme } from "../context/ThemeContext"
 import { useState, useEffect, useRef } from "react" 
@@ -20,6 +20,7 @@ export const Appbar = () => {
   const navigate = useNavigate()
   const { toast } = useToast()
 
+  const {name,email} = useParams()
   // Mark component as mounted to avoid hydration mismatch
   useEffect(() => {
     setMounted(true)
@@ -178,8 +179,8 @@ export const Appbar = () => {
                   {showUserMenu && (
                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-10 border border-gray-200 dark:border-gray-700">
                       <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Abuzer</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">user@example.com</p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{name}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{email}</p>
                       </div>
                       <a
                         href="#"
@@ -254,8 +255,8 @@ export const Appbar = () => {
 
               <div className="flex items-center justify-between px-2 py-3">
                 <div className="flex items-center gap-3">
-                  <Avatar size="big" name="Abuzer" />
-                  <span className="font-medium text-gray-900 dark:text-gray-100">Abuzer</span>
+                  <Avatar size="big" name={name as string} />
+                  <span className="font-medium text-gray-900 dark:text-gray-100">{name}</span>
                 </div>
                 <button
                   onClick={handleLogout}

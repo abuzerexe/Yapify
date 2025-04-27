@@ -69,7 +69,7 @@ export const Quote = () => {
     const currQuote = quotes[currQuoteIndex]
 
     return (
-        <div className="bg-slate-200 h-screen flex justify-center flex-col">
+        <div className="bg-slate-200 dark:bg-slate-800 h-screen flex justify-center flex-col ">
           <div className="flex justify-center">
             <div className="max-w-lg">
               <AnimatePresence mode="wait">
@@ -81,13 +81,13 @@ export const Quote = () => {
                   transition={{ duration: 0.5 }}
                   className="text-center"
                 >
-                  <div className="text-3xl font-bold ">
+                  <div className="text-3xl font-bold dark:text-gray-100 ">
                     "{currQuote.text}"
                   </div>
-                  <div className="max-w-md text-xl font-semibold text-left mt-4 pl-5">
+                  <div className="max-w-md text-xl font-semibold text-left mt-4 pl-5 dark:text-gray-300">
                     {currQuote.author}
                   </div>
-                  <div className="max-w-md text-sm font-light text-slate-700 text-left pl-5">
+                  <div className="max-w-md text-sm font-light text-slate-700 text-left pl-5 dark:text-slate-400 ">
                     {currQuote.title}
                   </div>
                 </motion.div>

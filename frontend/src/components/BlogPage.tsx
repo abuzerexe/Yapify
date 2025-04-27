@@ -29,6 +29,14 @@ export const BlogPageSkeleton = () => {
 }
 
 export const BlogPage = ({ blog }: { blog: BlogCardProps }) => {
+  
+  const date =
+    blog.publishedDate
+      ? `${blog.publishedDate.substring(0, 10)} ${blog.publishedDate.substring(11, 19)}`
+      : blog.createdAt
+      ? `${blog.createdAt.substring(0, 10)} ${blog.createdAt.substring(11, 19)}`
+      : "Unknown Date";
+      
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -37,7 +45,7 @@ export const BlogPage = ({ blog }: { blog: BlogCardProps }) => {
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">{blog.title}</h1>
             <div className="flex items-center mt-4 text-gray-500 dark:text-gray-400">
               <CalendarIcon className="h-4 w-4 mr-2" />
-              <time dateTime={blog.createdAt || blog.publishedDate}>{blog.createdAt || blog.publishedDate}</time>
+              <time dateTime={date}>{date}</time>
             </div>
           </div>
 

@@ -9,6 +9,7 @@ import { Button } from "../components/Button"
 import { useAuth } from "../hooks/useAuth"
 import { useTheme } from "../context/ThemeContext"
 import { useToast } from "../context/ToastContext"
+import { Authbar } from "../components/Authbar"
 
 export const Signup = () => {
   const navigate = useNavigate()
@@ -39,6 +40,8 @@ export const Signup = () => {
   }
 
   return (
+    <div>
+      <Authbar/>
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="h-screen flex justify-center flex-col">
@@ -99,6 +102,7 @@ export const Signup = () => {
           <Quote />
         </div>
       </div>
+    </div>
     </div>
   )
 }

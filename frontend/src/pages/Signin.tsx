@@ -7,14 +7,13 @@ import type { SigninInput } from "@abuzerexe/yapify-common"
 import { LabelledInput } from "../components/Label"
 import { Button } from "../components/Button"
 import { useAuth } from "../hooks/useAuth"
-import { useTheme } from "../context/ThemeContext"
 import { useToast } from "../context/ToastContext"
+import { Authbar } from "../components/Authbar"
 
 
 
 export const Signin = () => {
   const navigate = useNavigate()
-  const { theme } = useTheme()
 
   const [signinInputs, setSigninInputs] = useState<SigninInput>({
     email: "",
@@ -24,7 +23,7 @@ export const Signin = () => {
   const { mutate: signIn, isPending } = useAuth({
     route: "/user/signin",
   })
-  
+
   const { toast } = useToast()
 
   const handleSignIn = () => {
@@ -33,7 +32,7 @@ export const Signin = () => {
       onSuccess: (data) => {
         toast("Signed in successfully!", "success")
         localStorage.setItem("token", data.token)
-        navigate("/blogs")
+        navigate(`/blogs?email=${data.email}&name=${data.name}`)
       },
       onError: (error: any) => {
         toast(error.response?.data?.message || "Error while signing in.", "error")
@@ -42,6 +41,8 @@ export const Signin = () => {
   }
 
   return (
+    <div>
+    <Authbar/>
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="h-screen flex justify-center flex-col">
@@ -89,6 +90,7 @@ export const Signin = () => {
           <Quote />
         </div>
       </div>
+    </div>
     </div>
   )
 }
