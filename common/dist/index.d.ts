@@ -54,5 +54,6 @@ export declare const deleteBlogInput: z.ZodObject<{
 }>;
 export type SigninInput = z.infer<typeof signinInput>;
 export type SignupInput = z.infer<typeof signupInput>;
+export type CreateBlogInput = z.infer<typeof createBlogInput>;
 export type UpdateBlogInput = z.infer<typeof updateBlogInput>;
 export type DeleteBlogInput = z.infer<typeof deleteBlogInput>;
