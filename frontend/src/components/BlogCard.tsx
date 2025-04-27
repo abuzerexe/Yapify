@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { Avatar } from "./Avatar"
 import { CalendarIcon, Clock } from "./Icons"
 import DOMPurify from "dompurify"
@@ -16,6 +16,8 @@ export interface BlogCardProps {
 const BlogContent = ({ content }: { content: string }) => {
   // Sanitize content to prevent XSS attacks
   const sanitizedContent = DOMPurify.sanitize(content)
+
+  
 
   // Calculate the read time based on word count (rough estimate: 200 words per minute)
   const wordCount = content.split(" ").length
@@ -41,8 +43,14 @@ const BlogContent = ({ content }: { content: string }) => {
 
 export const BlogCard = ({ authorName, publishedDate, title, content, id }: BlogCardProps) => {
   const date = `${publishedDate.substring(0,10)} ${publishedDate.substring(12,19)}`
+
+  const [searchParams] = useSearchParams();
+
+  const email = searchParams.get("email");
+  const name = searchParams.get("name");
+
   return (
-    <Link to={`/blog/${id}`}>
+    <Link to={`/blog/${id}?email=${email}&name=${name}`}>
       <div className=" mb-4 overflow-hidden hover:shadow-md transition-all duration-300 border-2 border-emerald-100 dark:border-emerald-900/30 rounded-lg bg-white dark:bg-gray-900">
         <div className="p-6">
           <div className="flex items-center space-x-3 mb-4">

@@ -110,7 +110,9 @@ user.post('/signin', async (c)=>{
                 password : hashedPassword as string
             },
             select: {
-                id : true
+                id : true,
+                name: true,
+                email: true
             }
         })
 
@@ -121,7 +123,9 @@ user.post('/signin', async (c)=>{
 
             return c.json({
                 message : "Sign In Successfully.",
-                token
+                token,
+                name: check.name,
+                email: check.email
             })
         }else{
             c.status(422)

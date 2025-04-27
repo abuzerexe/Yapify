@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useCallback, useEffect } from "react" 
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { Appbar } from "../components/Appbar"
 import { Button } from "../components/Button"
 import { Save, Loader } from "../components/Icons"
@@ -45,6 +45,11 @@ export const Publish = () => {
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(true)
 
+  const [searchParams] = useSearchParams();
+
+  const email = searchParams.get("email");
+  const name = searchParams.get("name");
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false)
@@ -86,7 +91,7 @@ export const Publish = () => {
       )
 
       toast("Blog post published successfully!", "success")
-      navigate(`/blog/${response.data.id}`)
+      navigate(`/blog/${response.data.id}?email=${email}&name=${name}`)
     } catch (error: any) {
       toast(error.response?.data?.message || "Failed to publish blog post. Please try again.", "error")
       console.error("Error publishing blog:", error)

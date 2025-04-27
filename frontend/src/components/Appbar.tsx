@@ -1,6 +1,6 @@
 "use client"
 
-import { Link, useNavigate, useParams } from "react-router-dom" 
+import { Link, useNavigate, useSearchParams } from "react-router-dom" 
 import { Avatar } from "./Avatar"
 import { useTheme } from "../context/ThemeContext"
 import { useState, useEffect, useRef } from "react" 
@@ -20,7 +20,11 @@ export const Appbar = () => {
   const navigate = useNavigate()
   const { toast } = useToast()
 
-  const {name,email} = useParams()
+  const [searchParams] = useSearchParams();
+
+  const email = searchParams.get("email");
+  const name = searchParams.get("name");
+
   // Mark component as mounted to avoid hydration mismatch
   useEffect(() => {
     setMounted(true)
@@ -61,7 +65,7 @@ export const Appbar = () => {
     setIsNewBlogLoading(true)
     // Simulate loading for demonstration
     setTimeout(() => {
-      navigate("/blog/publish")
+      navigate(`/blog/publish?email=${email}&name=${name}`)
       setIsNewBlogLoading(false)
     }, 500)
   }
@@ -87,7 +91,7 @@ export const Appbar = () => {
       <header className="border-b border-emerald-100 dark:border-emerald-900/30 bg-white dark:bg-gray-900 sticky top-0 z-10 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link to="/blogs" className="flex items-center">
+            <Link to={`/blogs?email=${email}&name=${name}`} className="flex items-center">
               <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
                 Yap
               </span>
@@ -173,7 +177,8 @@ export const Appbar = () => {
                     aria-haspopup="true"
                     aria-expanded={showUserMenu}
                   >
-                    <Avatar size="big" name="Abuzer" />
+                    <Avatar size="big" name={name as string} />
+                    
                   </div>
 
                   {showUserMenu && (
