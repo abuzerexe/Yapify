@@ -2,7 +2,7 @@
 
 import { Link} from "react-router-dom" 
 import { useTheme } from "../context/ThemeContext"
-import { useState, useEffect, useRef } from "react" 
+import { useState, useEffect } from "react" 
 import {  Moon, Sun } from "./Icons" 
 
 export const Authbar = () => {

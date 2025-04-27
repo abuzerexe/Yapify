@@ -7,13 +7,11 @@ import type { SignupInput } from "@abuzerexe/yapify-common"
 import { LabelledInput } from "../components/Label"
 import { Button } from "../components/Button"
 import { useAuth } from "../hooks/useAuth"
-import { useTheme } from "../context/ThemeContext"
 import { useToast } from "../context/ToastContext"
 import { Authbar } from "../components/Authbar"
 
 export const Signup = () => {
   const navigate = useNavigate()
-  const { theme } = useTheme()
 
   const [signupInputs, setSignupInputs] = useState<SignupInput>({
     name: "",
@@ -29,7 +27,7 @@ export const Signup = () => {
 
   const handleSignup = () => {
     signUp(signupInputs, {
-      onSuccess: (data) => {
+      onSuccess: () => {
         toast("Signed up successfully!", "success")
         navigate("/signin")
       },

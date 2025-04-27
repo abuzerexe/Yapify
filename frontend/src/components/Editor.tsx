@@ -10,52 +10,52 @@ import { BaseKit } from "reactjs-tiptap-editor"
 import { Bold } from "reactjs-tiptap-editor/bold"
 import { Italic } from "reactjs-tiptap-editor/italic"
 import { TextUnderline } from "reactjs-tiptap-editor/textunderline"
-import { Strike } from "reactjs-tiptap-editor/strike"
+// import { Strike } from "reactjs-tiptap-editor/strike"
 
 // Text Styling
 import { Highlight } from "reactjs-tiptap-editor/highlight"
 import { Color } from "reactjs-tiptap-editor/color"
-import { FontSize } from "reactjs-tiptap-editor/fontsize"
-import { FontFamily } from "reactjs-tiptap-editor/fontfamily"
-import { LineHeight } from "reactjs-tiptap-editor/lineheight"
+// import { FontSize } from "reactjs-tiptap-editor/fontsize"
+// import { FontFamily } from "reactjs-tiptap-editor/fontfamily"
+// import { LineHeight } from "reactjs-tiptap-editor/lineheight"
 
 // Headers
 import { Heading } from "reactjs-tiptap-editor/heading"
 
 // Lists
-import { BulletList } from "reactjs-tiptap-editor/bulletlist"
-import { OrderedList } from "reactjs-tiptap-editor/orderedlist"
+// import { BulletList } from "reactjs-tiptap-editor/bulletlist"
+// import { OrderedList } from "reactjs-tiptap-editor/orderedlist"
 
 // Alignment
 import { TextAlign } from "reactjs-tiptap-editor/textalign"
-import { Indent } from "reactjs-tiptap-editor/indent"
+// import { Indent } from "reactjs-tiptap-editor/indent"
 
 // Block Elements
 import { Blockquote } from "reactjs-tiptap-editor/blockquote"
-import { CodeBlock } from "reactjs-tiptap-editor/codeblock"
+// import { CodeBlock } from "reactjs-tiptap-editor/codeblock"
 import { HorizontalRule } from "reactjs-tiptap-editor/horizontalrule"
 
 // Media
 import { Link } from "reactjs-tiptap-editor/link"
-import { Image } from "reactjs-tiptap-editor/image"
-import { ImageGif } from "reactjs-tiptap-editor/imagegif"
-import { Attachment } from "reactjs-tiptap-editor/attachment"
-import { Iframe } from "reactjs-tiptap-editor/iframe"
-import { Twitter } from "reactjs-tiptap-editor/twitter"
+// import { Image } from "reactjs-tiptap-editor/image"
+// import { ImageGif } from "reactjs-tiptap-editor/imagegif"
+// import { Attachment } from "reactjs-tiptap-editor/attachment"
+// import { Iframe } from "reactjs-tiptap-editor/iframe"
+// import { Twitter } from "reactjs-tiptap-editor/twitter"
 
 // Utilities
-import { SlashCommand } from "reactjs-tiptap-editor/slashcommand"
-import { SearchAndReplace } from "reactjs-tiptap-editor/searchandreplace"
+// import { SlashCommand } from "reactjs-tiptap-editor/slashcommand"
+// import { SearchAndReplace } from "reactjs-tiptap-editor/searchandreplace"
 import { Emoji } from "reactjs-tiptap-editor/emoji"
-import { History } from "reactjs-tiptap-editor/history"
-import { Document } from "reactjs-tiptap-editor/document"
-import { Code } from "reactjs-tiptap-editor/code"
-import { SubAndSuperScript } from "reactjs-tiptap-editor/subandsuperscript"
-import { Selection } from "reactjs-tiptap-editor/selection"
-import { Mention } from "reactjs-tiptap-editor/mention"
-import { Table } from "reactjs-tiptap-editor/table"
-import { ExportPdf } from "reactjs-tiptap-editor/exportpdf"
-import { ExportWord } from "reactjs-tiptap-editor/exportword"
+// import { History } from "reactjs-tiptap-editor/history"
+// import { Document } from "reactjs-tiptap-editor/document"
+// import { Code } from "reactjs-tiptap-editor/code"
+// import { SubAndSuperScript } from "reactjs-tiptap-editor/subandsuperscript"
+// import { Selection } from "reactjs-tiptap-editor/selection"
+// import { Mention } from "reactjs-tiptap-editor/mention"
+// import { Table } from "reactjs-tiptap-editor/table"
+// import { ExportPdf } from "reactjs-tiptap-editor/exportpdf"
+// import { ExportWord } from "reactjs-tiptap-editor/exportword"
 
 // Styles
 import "reactjs-tiptap-editor/style.css"
@@ -188,6 +188,7 @@ const Editor = React.memo(({ content, setContent }: { content: string; setConten
         output="html"
         content={content}
         onChangeContent={handleContentChange}
+        //@ts-ignore
         extensions={extensions}
         placeholder="Write your amazing story here..."
       />
