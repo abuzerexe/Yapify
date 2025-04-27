@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useCallback } from "react"
+import { useState, useRef, useCallback, useEffect } from "react" 
 import { useNavigate } from "react-router-dom"
 import { Appbar } from "../components/Appbar"
 import { Button } from "../components/Button"
@@ -9,12 +9,48 @@ import axios from "axios"
 import Editor from "../components/Editor"
 import { useToast } from "../context/ToastContext"
 
+export const PublishSkeleton = () => {
+  return (
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden border border-emerald-100 dark:border-emerald-900/30">
+        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 px-6 py-4">
+          <div className="h-8 w-64 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+        </div>
+
+        <div className="p-6 space-y-6">
+          <div className="space-y-2">
+            <div className="h-5 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div className="h-12 w-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="h-5 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 px-6 py-4 flex justify-end">
+          <div className="h-10 w-28 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export const Publish = () => {
   const [title, setTitle] = useState("")
   const [isPublishing, setIsPublishing] = useState(false)
   const contentRef = useRef("")
   const navigate = useNavigate()
   const { toast } = useToast()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleContentChange = useCallback((newContent: string) => {
     contentRef.current = newContent
@@ -34,8 +70,7 @@ export const Publish = () => {
     setIsPublishing(true)
     try {
       const d = new Date()
-      const time = d.toISOString(); 
-
+      const time = d.toISOString();
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/blog`,
         {
@@ -58,6 +93,15 @@ export const Publish = () => {
     } finally {
       setIsPublishing(false)
     }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <Appbar />
+        <PublishSkeleton />
+      </div>
+    )
   }
 
   return (

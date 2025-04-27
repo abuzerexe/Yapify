@@ -4,11 +4,13 @@ import { Quote } from "../components/Quote"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import type { SigninInput } from "@abuzerexe/yapify-common"
-import { toast } from "react-hot-toast"
 import { LabelledInput } from "../components/Label"
 import { Button } from "../components/Button"
 import { useAuth } from "../hooks/useAuth"
 import { useTheme } from "../context/ThemeContext"
+import { useToast } from "../context/ToastContext"
+
+
 
 export const Signin = () => {
   const navigate = useNavigate()
@@ -22,30 +24,19 @@ export const Signin = () => {
   const { mutate: signIn, isPending } = useAuth({
     route: "/user/signin",
   })
+  
+  const { toast } = useToast()
 
   const handleSignIn = () => {
+
     signIn(signinInputs, {
       onSuccess: (data) => {
-        toast.success("Signed in successfully!", {
-          style: {
-            border: "1px solid rgb(5, 110, 5)",
-            padding: "16px",
-            background: theme === "dark" ? "#1f2937" : "#ffffff",
-            color: theme === "dark" ? "#ffffff" : "#000000",
-          },
-        })
+        toast("Signed in successfully!", "success")
         localStorage.setItem("token", data.token)
         navigate("/blogs")
       },
       onError: (error: any) => {
-        toast.error(error.response?.data?.message || "Error while signing in.", {
-          style: {
-            border: "1px solid rgb(202, 16, 16)",
-            padding: "16px",
-            background: theme === "dark" ? "#1f2937" : "#ffffff",
-            color: theme === "dark" ? "#ffffff" : "#000000",
-          },
-        })
+        toast(error.response?.data?.message || "Error while signing in.", "error")
       },
     })
   }

@@ -4,11 +4,11 @@ import { Quote } from "../components/Quote"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import type { SignupInput } from "@abuzerexe/yapify-common"
-import { toast } from "react-hot-toast"
 import { LabelledInput } from "../components/Label"
 import { Button } from "../components/Button"
 import { useAuth } from "../hooks/useAuth"
 import { useTheme } from "../context/ThemeContext"
+import { useToast } from "../context/ToastContext"
 
 export const Signup = () => {
   const navigate = useNavigate()
@@ -24,28 +24,16 @@ export const Signup = () => {
     route: "/user/signup",
   })
 
+  const { toast } = useToast()
+
   const handleSignup = () => {
     signUp(signupInputs, {
       onSuccess: (data) => {
-        toast.success("Signed up successfully!", {
-          style: {
-            border: "1px solid rgb(5, 110, 5)",
-            padding: "16px",
-            background: theme === "dark" ? "#1f2937" : "#ffffff",
-            color: theme === "dark" ? "#ffffff" : "#000000",
-          },
-        })
+        toast("Signed up successfully!", "success")
         navigate("/signin")
       },
       onError: (error: any) => {
-        toast.error(error.response?.data?.message || "Error while signing up.", {
-          style: {
-            border: "1px solid rgb(202, 16, 16)",
-            padding: "16px",
-            background: theme === "dark" ? "#1f2937" : "#ffffff",
-            color: theme === "dark" ? "#ffffff" : "#000000",
-          },
-        })
+        toast(error.response?.data?.message || "Error while signing up.", "error")
       },
     })
   }

@@ -40,6 +40,7 @@ const BlogContent = ({ content }: { content: string }) => {
 }
 
 export const BlogCard = ({ authorName, publishedDate, title, content, id }: BlogCardProps) => {
+  const date = `${publishedDate.substring(0,10)} ${publishedDate.substring(12,19)}`
   return (
     <Link to={`/blog/${id}`}>
       <div className=" mb-4 overflow-hidden hover:shadow-md transition-all duration-300 border-2 border-emerald-100 dark:border-emerald-900/30 rounded-lg bg-white dark:bg-gray-900">
@@ -50,7 +51,7 @@ export const BlogCard = ({ authorName, publishedDate, title, content, id }: Blog
               <span className="font-medium text-gray-800 dark:text-gray-200">{authorName}</span>
               <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 rounded-full border border-gray-200 dark:border-gray-700 px-2 py-0.5">
                 <CalendarIcon className="h-3 w-3 mr-1" />
-                {publishedDate}
+                {date}
               </div>
             </div>
           </div>

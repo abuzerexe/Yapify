@@ -1,10 +1,11 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react" 
 import { Appbar } from "../components/Appbar"
 import { BlogCard, type BlogCardProps } from "../components/BlogCard"
 import { useBlogs } from "../hooks/useBlogs"
 import { useToast } from "../context/ToastContext"
+import { useLocation } from "react-router-dom" 
 
 export const BlogSkeleton = () => {
   return (
@@ -26,12 +27,28 @@ export const BlogSkeleton = () => {
 export const Blogs = () => {
   const { isPending, isError, blogs, error } = useBlogs()
   const { toast } = useToast()
+  const location = useLocation() 
+
+  const [forceLoading, setForceLoading] = useState(false)
+
+  useEffect(() => {
+    // If we're coming from another page, show skeleton briefly
+    if (location.key) {
+      setForceLoading(true)
+      const timer = setTimeout(() => {
+        setForceLoading(false)
+      }, 800) // Show skeleton for 800ms
+      return () => clearTimeout(timer)
+    }
+  }, [location.key])
 
   useEffect(() => {
     if (isError && error) {
       toast(error.message || "Failed to load blog posts. Please try again later.", "error")
     }
   }, [isError, error, toast])
+
+  const isLoading = isPending || forceLoading
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -49,7 +66,7 @@ export const Blogs = () => {
           </p>
         </div>
 
-        {isPending ? (
+        {isLoading ? (
           <div className="space-y-6 animate-pulse">
             <BlogSkeleton />
             <BlogSkeleton />

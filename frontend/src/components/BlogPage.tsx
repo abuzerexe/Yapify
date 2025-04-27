@@ -42,7 +42,7 @@ export const BlogPage = ({ blog }: { blog: BlogCardProps }) => {
           </div>
 
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 p-0.5 rounded-lg">
-            <div className="bg-white dark:bg-gray-900 rounded-md p-8">
+            <div className="bg-white dark:bg-gray-900 rounded-md p-8 border-2 border-emerald-100 dark:border-emerald-900/30 rounded-lg">
               <BlogContent blogContent={blog.content} />
             </div>
           </div>
@@ -53,7 +53,9 @@ export const BlogPage = ({ blog }: { blog: BlogCardProps }) => {
             <div className="bg-white dark:bg-gray-900 rounded-md p-6">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">About the Author</h2>
               <div className="flex items-start gap-4">
+                <div>
                 <Avatar size="big" name={blog.author?.name || blog.authorName} />
+                </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                     {blog.author?.name || blog.authorName || "Anonymous"}
