@@ -1,31 +1,41 @@
+"use client"
 
+import { useParams } from "react-router-dom"
+import { Appbar } from "../components/Appbar"
+import { BlogPage } from "../components/BlogPage"
+import { BlogPageSkeleton } from "../components/BlogPage"
+import { useBlog } from "../hooks/useBlog"
+import { useToast } from "../context/ToastContext"
+import { useEffect } from "react"
 
-import { Appbar } from "../components/Appbar";
-import { BlogPage } from "../components/BlogPage";
-// import { Spinner } from "../components/Spinner";
-import { useBlog } from "../hooks/useBlog";
-import {useParams} from "react-router-dom";
-
-// atomFamilies/selectorFamilies
 export const Blog = () => {
-    const { id } = useParams();
+  const { id } = useParams()
+  const { isPending, isError, blog, error } = useBlog({ id: id as string })
+  const { toast } = useToast()
 
-    const {isPending, isError, blog, error} = useBlog({ id: id as string });
-    console.log(blog)
-
-    if (isPending || !blog) {
-        return <div>
-            <Appbar />
-        
-            <div className="h-screen flex flex-col justify-center">
-                
-                <div className="flex justify-center">
-                    {/* <Spinner /> */}
-                </div>
-            </div>
-        </div>
+  useEffect(() => {
+    if (isError && error) {
+      toast(
+        error.message || "Failed to load blog post. Please try again later.",
+        "error"
+      )
     }
-    return <div>
-        <BlogPage blog={blog.data} />
+  }, [isError, error, toast])
+
+  if (isPending || !blog) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900">
+        <Appbar />
+        <BlogPageSkeleton />
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <Appbar />
+      <BlogPage blog={blog.data} />
     </div>
+  )
 }
+

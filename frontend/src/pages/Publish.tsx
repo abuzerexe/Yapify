@@ -1,66 +1,114 @@
-import { Appbar } from "../components/Appbar";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useState, useRef, useCallback } from "react";
-import Editor from "../components/Editor";
-import { Button } from "../components/Button";
+"use client"
+
+import { useState, useRef, useCallback } from "react"
+import { useNavigate } from "react-router-dom"
+import { Appbar } from "../components/Appbar"
+import { Button } from "../components/Button"
+import { Save, Loader } from "../components/Icons"
+import axios from "axios"
+import Editor from "../components/Editor"
+import { useToast } from "../context/ToastContext"
 
 export const Publish = () => {
-  const [title, setTitle] = useState("");
-  const contentRef = useRef("");
-  const navigate = useNavigate();
-  
-  // Memoized content update function 
-  const handleContentChange = useCallback((newContent:any) => {
-    contentRef.current = newContent;
-  }, []);
+  const [title, setTitle] = useState("")
+  const [isPublishing, setIsPublishing] = useState(false)
+  const contentRef = useRef("")
+  const navigate = useNavigate()
+  const { toast } = useToast()
+
+  const handleContentChange = useCallback((newContent: string) => {
+    contentRef.current = newContent
+  }, [])
 
   const addBlog = async () => {
-    const d = new Date()
-    const time = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`
-    
-    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/blog`, {
-      title,
-      content: contentRef.current,
-      createdAt : time
-    },{
-        headers :{
-            Authorization: localStorage.getItem('token')
-        }
-    });
+    if (!title.trim()) {
+      toast("Please enter a title for your blog post", "warning")
+      return
+    }
 
-    navigate(`/blog/${response.data.id}`)
-  };
+    if (!contentRef.current.trim()) {
+      toast("Please add some content to your blog post", "warning")
+      return
+    }
+
+    setIsPublishing(true)
+    try {
+      const d = new Date()
+      const time = d.toISOString(); 
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/blog`,
+        {
+          title,
+          content: contentRef.current,
+          createdAt: time,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        },
+      )
+
+      toast("Blog post published successfully!", "success")
+      navigate(`/blog/${response.data.id}`)
+    } catch (error: any) {
+      toast(error.response?.data?.message || "Failed to publish blog post. Please try again.", "error")
+      console.error("Error publishing blog:", error)
+    } finally {
+      setIsPublishing(false)
+    }
+  }
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Appbar />
-      <div className="flex justify-center w-full pt-8">
-        <div className="max-w-screen-lg w-full">
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            type="text"
-            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Title"
-          />
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden border border-emerald-100 dark:border-emerald-900/30">
+          <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 px-6 py-4">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create New Blog Post</h1>
+          </div>
 
-          <div className="mt-2">
-            <div className="w-full mb-4">
-              <div className="flex items-center justify-between">
-                <div className="my-2 bg-white rounded-b-lg w-full">
-                  <Editor
-                    content={contentRef.current}
-                    setContent={handleContentChange}
-                  />
-                </div>
+          <div className="p-6 space-y-6">
+            <div className="space-y-2">
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Title
+              </label>
+              <input
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                type="text"
+                className="w-full px-4 py-2 text-lg border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                placeholder="Enter your blog title"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Content</label>
+              <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden min-h-[300px]">
+                <Editor content={contentRef.current} setContent={handleContentChange} />
               </div>
             </div>
           </div>
-          <button type="button" onClick={addBlog} className={`mt-5 w-xl  text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-md px-5 py-2.5 me-2 mb-2   ${status?"cursor-not-allowed opacity-50":"cursor-pointer"}} ` }  >Publish</button>
 
+          <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 px-6 py-4 flex justify-end">
+            <Button onClick={addBlog} status={isPublishing} className="px-6">
+              {isPublishing ? (
+                <>
+                  <Loader className="mr-2 h-4 w-4" />
+                  Publishing...
+                </>
+              ) : (
+                <>
+                  <Save className="mr-2 h-4 w-4" />
+                  Publish
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
