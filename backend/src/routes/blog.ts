@@ -50,7 +50,7 @@ blog.use('/*', async (c,next)=>{
     }
 })
 
-
+// create a blog
 blog.post('/',async (c)=>{
     
     const prisma = new PrismaClient({
@@ -105,6 +105,7 @@ blog.post('/',async (c)=>{
 
 })
 
+// update blog
 blog.put('/',async (c)=>{
 
     const prisma = new PrismaClient({
