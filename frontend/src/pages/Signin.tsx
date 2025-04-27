@@ -29,7 +29,6 @@ export const Signin = () => {
               border: '1px solid rgb(5, 110, 5)',
               padding: '16px',
             }});
-            console.log(data.token)
         localStorage.setItem("token",data.token)
         navigate("/blogs");
       },
