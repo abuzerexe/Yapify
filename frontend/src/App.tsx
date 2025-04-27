@@ -8,6 +8,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
+import { Publish } from './pages/Publish.tsx'
 
 const queryClient = new QueryClient()
 
@@ -23,7 +24,7 @@ function App() {
             <Route path="/signin" element={<Signin />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blog/:id" element={<Blog />} />
-            {/* <Route path='/blog/publish' element={<Publish} */}
+            <Route path='/blog/publish' element={<Publish/>} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
@@ -31,4 +32,5 @@ function App() {
   )
 }
 
-export default App
+export default App;
+
