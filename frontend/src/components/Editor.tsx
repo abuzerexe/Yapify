@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useContext } from "react"
 import RichTextEditor from "reactjs-tiptap-editor"
 
 // Core Extensions
@@ -63,6 +63,7 @@ import "prism-code-editor-lightweight/layout.css"
 import "prism-code-editor-lightweight/themes/github-dark.css"
 import "prism-code-editor-lightweight/themes/github-light.css"
 import "react-image-crop/dist/ReactCrop.css"
+import { useTheme } from "../context/ThemeContext"
 
 // ⚡ Extensions Setup
 const extensions = [
@@ -141,6 +142,10 @@ const extensions = [
 
 // Enhanced editor component with internal content handling
 const Editor = React.memo(({ content, setContent }: { content: string; setContent: (newContent: string) => void }) => {
+  
+  const { theme } = useTheme();
+    const isDarkMode = theme === "dark";
+  
   // Use local handler to avoid re-renders
   const handleContentChange = (newContent: string) => {
     setContent(newContent)
@@ -149,6 +154,7 @@ const Editor = React.memo(({ content, setContent }: { content: string; setConten
   return (
     <div className="editor-wrapper">
       <RichTextEditor
+      dark = {isDarkMode}
         toolbar={{
             //@ts-ignore
           items: [

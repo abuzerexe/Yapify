@@ -27,10 +27,17 @@ export const BlogSkeleton = () => {
 export const Blogs = () => {
   const { isPending, isError, blogs, error } = useBlogs()
   const { toast } = useToast()
-  const location = useLocation() 
-
+  const location = useLocation()
   const [forceLoading, setForceLoading] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false) 
 
+
+    // Check authentication status
+    useEffect(() => {
+      const token = localStorage.getItem("token")
+      setIsAuthenticated(!!token)
+    }, [])
+    
   useEffect(() => {
     // If we're coming from another page, show skeleton briefly
     if (location.key) {

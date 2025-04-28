@@ -44,18 +44,33 @@ export const Publish = () => {
   const navigate = useNavigate()
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check authentication status
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      toast("Please sign in to create a blog post", "warning")
+      navigate("/signin")
+      return
+    }
+    setIsAuthenticated(true)
+  }, [navigate])
 
   const [searchParams] = useSearchParams();
 
   const email = searchParams.get("email");
   const name = searchParams.get("name");
 
+  // Simulate loading time for the editor
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
-    return () => clearTimeout(timer)
-  }, [])
+    if (isAuthenticated) {
+      const timer = setTimeout(() => {
+        setIsLoading(false)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [isAuthenticated])
 
   const handleContentChange = useCallback((newContent: string) => {
     contentRef.current = newContent
@@ -100,13 +115,17 @@ export const Publish = () => {
     }
   }
 
-  if (isLoading) {
+  if (isLoading && isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Appbar />
         <PublishSkeleton />
       </div>
     )
+  }
+  
+  if (!isAuthenticated) {
+    return null // Don't render anything while redirecting
   }
 
   return (
@@ -135,7 +154,7 @@ export const Publish = () => {
 
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Content</label>
-              <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden min-h-[300px]">
+              <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden min-h-[200px]">
                 <Editor content={contentRef.current} setContent={handleContentChange} />
               </div>
             </div>

@@ -22,9 +22,9 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     
     if (savedTheme) {
       setTheme(savedTheme)
-    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    } else {
       // Check system preference if no saved preference
-      setTheme("dark")
+      setTheme("light")
     }
   }, [])
 

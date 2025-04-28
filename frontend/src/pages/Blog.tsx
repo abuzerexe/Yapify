@@ -1,17 +1,24 @@
 "use client"
 
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Appbar } from "../components/Appbar"
 import { BlogPage } from "../components/BlogPage"
 import { BlogPageSkeleton } from "../components/BlogPage"
 import { useBlog } from "../hooks/useBlog"
 import { useToast } from "../context/ToastContext"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export const Blog = () => {
   const { id } = useParams()
   const { isPending, isError, blog, error } = useBlog({ id: id as string })
   const { toast } = useToast()
+  const navigate = useNavigate()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    setIsAuthenticated(!!token)
+  }, [])
 
   useEffect(() => {
     if (isError && error) {
