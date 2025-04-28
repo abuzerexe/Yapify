@@ -78,20 +78,20 @@ Before you begin, make sure you have the following installed:
 ## Prisma Setup and Migrations
 To set up Prisma,
 
-1.navigate to the backend directory:
+1. navigate to the backend directory:
 
 ```bash
 cd Yapify/backend
 ```
 
-2.Run the Prisma migration commands to set up your database schema:
+2. Run the Prisma migration commands to set up your database schema:
 
 ```bash
 npx prisma migrate dev --name init
 ```
 This will create the necessary tables in your database.
 
-3.After running the migrations, generate Prisma client:
+3. After running the migrations, generate Prisma client:
 
 ```bash
 npx prisma generate --no-engine 
