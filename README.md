@@ -123,5 +123,4 @@ The application should now be available at http://localhost:3000 or http://local
 ## Contributing
 
 If you'd like to contribute to this project, feel free to open an issue or submit a pull request. 
-```
 
