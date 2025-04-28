@@ -7,7 +7,7 @@ Yapify is a blogging platform built with React, Cloudflare Workers, Zod, Prisma,
 Before you begin, make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/) 
-- [Cloudflare Workers CLI (wrangler)](https://developers.cloudflare.com/workers/) for the backend
+
 
 
 
