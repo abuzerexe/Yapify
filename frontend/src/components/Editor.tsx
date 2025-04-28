@@ -47,11 +47,11 @@ import { Link } from "reactjs-tiptap-editor/link"
 // import { SlashCommand } from "reactjs-tiptap-editor/slashcommand"
 // import { SearchAndReplace } from "reactjs-tiptap-editor/searchandreplace"
 import { Emoji } from "reactjs-tiptap-editor/emoji"
-// import { History } from "reactjs-tiptap-editor/history"
+import { History } from "reactjs-tiptap-editor/history"
 // import { Document } from "reactjs-tiptap-editor/document"
 // import { Code } from "reactjs-tiptap-editor/code"
 // import { SubAndSuperScript } from "reactjs-tiptap-editor/subandsuperscript"
-// import { Selection } from "reactjs-tiptap-editor/selection"
+import { Selection } from "reactjs-tiptap-editor/selection"
 // import { Mention } from "reactjs-tiptap-editor/mention"
 // import { Table } from "reactjs-tiptap-editor/table"
 // import { ExportPdf } from "reactjs-tiptap-editor/exportpdf"
@@ -128,11 +128,11 @@ const extensions = [
   // SlashCommand,
   // SearchAndReplace,
   Emoji,
-  History,
+  History.configure({}),
   // Document,
   // Code,
   // SubAndSuperScript,
-  Selection,
+  Selection.configure({}),
   // Mention,
   // Table,
   // ExportPdf,
@@ -188,7 +188,6 @@ const Editor = React.memo(({ content, setContent }: { content: string; setConten
         output="html"
         content={content}
         onChangeContent={handleContentChange}
-        //@ts-ignore
         extensions={extensions}
         placeholder="Write your amazing story here..."
       />
