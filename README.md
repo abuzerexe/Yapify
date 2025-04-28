@@ -11,7 +11,7 @@ Before you begin, make sure you have the following installed:
 
 
 
-# Clone the repository:
+## Clone the repository:
 
    ```bash
    git clone https://github.com/abuzerexe/Yapify.git
