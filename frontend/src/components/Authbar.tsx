@@ -1,4 +1,3 @@
-"use client"
 
 import { Link} from "react-router-dom" 
 import { useTheme } from "../context/ThemeContext"
@@ -24,7 +23,6 @@ export const Authbar = () => {
     // Initial check
     checkIfMobile()
 
-    // Add event listener
     window.addEventListener("resize", checkIfMobile)
 
     // Clean up

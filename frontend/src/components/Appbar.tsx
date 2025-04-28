@@ -1,6 +1,4 @@
-"use client"
 
-// Update imports to include useLocation
 import { Link, useNavigate, useLocation, useSearchParams } from "react-router-dom"
 import { Avatar } from "./Avatar"
 import { useTheme } from "../context/ThemeContext"
@@ -17,7 +15,6 @@ export const Appbar = () => {
   const [isNewBlogLoading, setIsNewBlogLoading] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
-  // Add isAuthenticated state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
@@ -28,18 +25,15 @@ export const Appbar = () => {
   const email = searchParams.get("email");
   const name = searchParams.get("name");
 
-  // Check authentication status
   useEffect(() => {
     const token = localStorage.getItem("token")
     setIsAuthenticated(!!token)
-  }, [location.pathname]) // Re-check when route changes
+  }, [location.pathname]) 
 
-  // Mark component as mounted to avoid hydration mismatch
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // Check if mobile on resize
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 768)
@@ -48,7 +42,6 @@ export const Appbar = () => {
     // Initial check
     checkIfMobile()
 
-    // Add event listener
     window.addEventListener("resize", checkIfMobile)
 
     // Clean up
@@ -91,13 +84,9 @@ export const Appbar = () => {
   }
 
   const confirmLogout = () => {
-    // Remove token from localStorage
     localStorage.removeItem("token")
-    // Show success toast
     toast("Logged out successfully", "success")
-    // Update authentication state
     setIsAuthenticated(false)
-    // Navigate to signin page
     navigate("/signin")
     // Close dialogs
     setShowLogoutConfirm(false)

@@ -1,4 +1,3 @@
-"use client"
 
 import { useEffect, useState } from "react" 
 import { Appbar } from "../components/Appbar"
@@ -29,7 +28,7 @@ export const Blogs = () => {
   const { toast } = useToast()
   const location = useLocation()
   const [forceLoading, setForceLoading] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false) 
+  const [, setIsAuthenticated] = useState(false) 
 
 
     // Check authentication status

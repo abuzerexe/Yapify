@@ -1,4 +1,4 @@
-"use client"
+
 
 import { Quote } from "../components/Quote"
 import { useState } from "react"

@@ -1,4 +1,4 @@
-"use client"
+
 
 import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
@@ -15,7 +15,6 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>("light") // Default to light to avoid hydration mismatch
 
-  // Initialize theme from localStorage or system preference
   useEffect(() => {
     // Check for saved theme preference
     const savedTheme = localStorage.getItem("theme") as Theme
@@ -23,7 +22,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     if (savedTheme) {
       setTheme(savedTheme)
     } else {
-      // Check system preference if no saved preference
       setTheme("light")
     }
   }, [])

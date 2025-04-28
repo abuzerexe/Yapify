@@ -1,4 +1,4 @@
-"use client"
+
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Blogs } from "./pages/Blogs"
@@ -12,10 +12,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Toaster } from "react-hot-toast"
 import { useTheme } from "./context/ThemeContext"
 
-// Create a client
 const queryClient = new QueryClient()
 
-// Custom toaster component that respects theme
 const ThemedToaster = () => {
   const { theme } = useTheme()
 

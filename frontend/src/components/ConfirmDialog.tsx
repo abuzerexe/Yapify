@@ -1,5 +1,3 @@
-// NEW FILE: Added ConfirmDialog component
-"use client"
 
 import { useEffect, useRef } from "react"
 

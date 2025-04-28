@@ -1,6 +1,5 @@
-"use client"
 
-import { useNavigate, useParams } from "react-router-dom"
+import {  useParams } from "react-router-dom"
 import { Appbar } from "../components/Appbar"
 import { BlogPage } from "../components/BlogPage"
 import { BlogPageSkeleton } from "../components/BlogPage"
@@ -12,8 +11,7 @@ export const Blog = () => {
   const { id } = useParams()
   const { isPending, isError, blog, error } = useBlog({ id: id as string })
   const { toast } = useToast()
-  const navigate = useNavigate()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
     const token = localStorage.getItem("token")

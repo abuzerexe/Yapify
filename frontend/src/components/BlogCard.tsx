@@ -19,7 +19,7 @@ const BlogContent = ({ content }: { content: string }) => {
 
   
 
-  // Calculate the read time based on word count (rough estimate: 200 words per minute)
+  //  word count (rough estimate: 200 words per minute)
   const wordCount = content.split(" ").length
   const readTime = Math.ceil(wordCount / 200)
 
