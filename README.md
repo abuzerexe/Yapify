@@ -1,6 +1,32 @@
 # Yapify - Blogging Platform
 
-Yapify is a blogging platform built with React, Cloudflare Workers, Zod, Prisma, and Postgres. This guide will walk you through setting up the project locally.
+Yapify is a blogging platform built with React, Hono, Cloudflare Workers, Zod, Prisma, and Postgres. 
+
+Live Link : https://yapify-flax.vercel.app/
+
+## Images
+### Login Page
+![Yapify-Login](/images/login.png)
+### Signup Page
+![Yapify-Signup](/images/signup.png)
+### Skeletons
+![Yapify-Skeletons](/images/skeletons.png)
+### Blogs Page
+![Yapify-Home](/images/home.png)
+### Creating Blog Page
+![Yapify-Editor](/images/editor.png)
+### Blog Page
+![Yapify-Blog](/images/blog.png)
+### Login Page - Dark Mode
+![Yapify-Login-Dark](/images/login-dark.png)
+### Blogs Page - Dark Mode
+![Yapify-Home-Dark](/images/home-dark.png)
+
+
+
+## Setting up locally
+
+This guide will walk you through setting up the project locally.
 
 ## Prerequisites
 
@@ -103,7 +129,7 @@ npx prisma generate
 ```
 Ensure your database is connected and Prisma is working properly by checking the database tables.
 
-## Running the Full Application Locally
+## Running the Application Locally
 
 1. Start the backend (or you can use the deployed cloudflare worker url) :
 
