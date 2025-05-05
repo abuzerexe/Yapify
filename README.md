@@ -4,6 +4,22 @@ Yapify is a blogging platform built with React, Hono, Cloudflare Workers, Zod, P
 
 Live Link : https://yapify-flax.vercel.app/
 
+##  The Stack: 
+
+ • React for the frontend
+
+ • Cloudflare Workers with Hono for the backend
+
+ • Zod for validation and frontend type inference
+
+ • TypeScript as the language
+
+ • Prisma as the ORM with connection pooling
+
+ • Postgres as the database
+
+ • JWT for authentication
+
 ## Images
 ### Login Page
 ![Yapify-Login](frontend/public/images/Yapify-Login.png)
