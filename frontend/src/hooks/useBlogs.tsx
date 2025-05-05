@@ -7,8 +7,7 @@ export const useBlogs = ()=>{
         queryFn : async ()=>{
             const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/blogs`)
             return response.data.data
-        },
-        staleTime : 60 * 1000
+        }
     })
     return{
         isPending,
