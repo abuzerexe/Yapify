@@ -159,7 +159,7 @@ Ensure your database is connected and Prisma is working properly by checking the
    npm run dev
    ```
 
-The application should now be available at http://localhost:3000 or http://localhost:3000/signin.
+The application should now be available at http://localhost:3000 or you can check on http://localhost:3000/signin.
 
 
 ## Contributing
